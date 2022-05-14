@@ -11,8 +11,14 @@ class Room:
     def room_guest_count(self):
         return len(self.guests)
 
+
     def check_in_guest(self, guest):
-        self.guests.append(guest)
+        if self.capacity > len(self.guests):
+            self.guests.append(guest)
+        
+    def take_fee(self, room, guest):
+        self.till += room.fee
+        guest.pay_fee(room)
 
     def check_out_guest(self, guest):
         self.guests.remove(guest)

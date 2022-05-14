@@ -5,4 +5,11 @@ class Guest:
         self.wallet = wallet
         self.song = favourite_song 
 
+    def sufficient_funds(self, room):
+        return self.wallet >= room.fee
+
+    def pay_fee(self, room):
+        if self.sufficient_funds(room):
+            self.wallet -= room.fee
+
         

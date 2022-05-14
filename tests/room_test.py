@@ -23,7 +23,7 @@ class TestRoom(unittest.TestCase):
     def test_room_has_number(self):
         self.assertEqual(1, self.room1.number)
 
-    def test_room_has_capacity(self):
+    def test_room_has_a_capacity(self):
         self.assertEqual(4, self.room2.capacity)
 
     def test_room_has_till(self):
@@ -32,9 +32,32 @@ class TestRoom(unittest.TestCase):
     def test_room_has_fee(self):
         self.assertEqual(5.00, self.room3.fee)
 
-    def test_check_in_guests(self):
+    # def test_check_in_guests(self):
+    #     self.room1.check_in_guest(self.guest1)
+    #     self.assertEqual(1, self.room1.room_guest_count())
+
+    def test_room_can_get_guest_numbers_0_guests(self):
+        self.assertEqual(0, self.room1.room_guest_count())
+
+    def test_room_can_get_guest_numbers_not_0_guests(self):
         self.room1.check_in_guest(self.guest1)
         self.assertEqual(1, self.room1.room_guest_count())
+
+    def test_room_capacity_has_space(self):
+        self.room1.check_in_guest(self.guest1)
+        self.assertEqual(1, self.room1.room_guest_count())
+
+    def test_room_capacity_no_space(self):
+        self.room1.check_in_guest(self.guest1)
+        self.room1.check_in_guest(self.guest2)
+        self.room1.check_in_guest(self.guest3)
+        self.assertEqual(2, self.room1.room_guest_count())
+
+    def test_check_in_guest(self):
+        self.room1.check_in_guest(self.guest1)
+        self.room1.take_fee(self.room1, self.guest1)
+        self.assertEqual(1, self.room1.room_guest_count())
+        self.assertEqual(55.00, self.room1.till)
 
     def test_check_out_guest_from_room(self):
         self.room2.check_in_guest(self.guest2)
@@ -52,6 +75,12 @@ class TestRoom(unittest.TestCase):
         self.room2.add_song_to_room(self.song3)
         self.room2.remove_song_from_room(self.song3)
         self.assertEqual(2, self.room2.room_song_count())
+
+    
+
+
+
+    
 
     
 
